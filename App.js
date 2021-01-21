@@ -1,44 +1,38 @@
-import React, { Component, useState } from 'react';
- import { StyleSheet, View, TextInput, Text, Button, Alert} from 'react-native';
+import React, { useState } from 'react';
+ import { StyleSheet, View, TextInput, Text, Button } from 'react-native';
 
   
 
-export default class Laskin extends Component {
+export default function App() {
 
-  //const [firstNumber, setFirstNumber] = useState('');
-  //const [secondNumber, setSecondNumber] = useState('');
+  const [firstNumber, setFirstNumber] = useState('');
+  const [secondNumber, setSecondNumber] = useState('');
+  const [message, setMessage] = useState('Result: ');
 
-  constructor(props)
-  {
-    super(props)
-  this.state={firstNumber:0, secondNumber:0};
-  }
 
-  Sum = () => {
-    var N1 = parseInt(this.state.firstNumber);
-    var N2 = parseInt(this.state.secondNumber);
+  const Sum = () => {
+    var N1 = parseInt(firstNumber);
+    var N2 = parseInt(secondNumber);
 
-    var result = N1+N2;
-    Alert.alert('Result is: ' + ' ' + result);
+    var result = N1 + N2;
+    setMessage(`Result: ${result}`);
     
   }
 
-  Subtraction = () => {
-    var N1 = parseInt(this.state.firstNumber);
-    var N2 = parseInt(this.state.secondNumber);
+  const Subtraction = () => {
+    var N1 = firstNumber;
+    var N2 = secondNumber;
 
-    var result = N1-N2;
-    Alert.alert('Result is: ' + ' ' + result);
+    var result = N1 - N2;
+    setMessage(`Result: ${result}`);
   }
 
-  render() 
-  {
     return (
 
  
  <View style={styles.container}>
  
-         <Text>Calculate: {this.Sum}</Text> 
+         <Text>{message}</Text> 
 
         <TextInput
  
@@ -48,7 +42,8 @@ export default class Laskin extends Component {
  
           keyboardType={'numeric'}
 
-          onChangeText={firstNumber=>this.setState({firstNumber})}
+          onChangeText={(firstNumber) => setFirstNumber(firstNumber)}
+          value={firstNumber}
  
         />
 
@@ -60,7 +55,8 @@ export default class Laskin extends Component {
 
  keyboardType={'numeric'}
 
-          onChangeText={secondNumber=>this.setState({secondNumber})}
+          onChangeText={(secondNumber) => setSecondNumber(secondNumber)}
+          value={secondNumber}
 
 />
 
@@ -68,10 +64,10 @@ export default class Laskin extends Component {
 
 <View style={styles.buttonContainer}>
 <View style={styles.button}>
-<Button title="+" onPress={this.Sum}/>
+<Button title="+" onPress={Sum}/>
 </View>
 <View style={styles.button}>
-<Button title="-" onPress={this.Subtraction}/>
+<Button title="-" onPress={Subtraction}/>
 </View>
 </View>
 </View>
@@ -85,7 +81,7 @@ export default class Laskin extends Component {
     );
   }
 
-}
+
  const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
